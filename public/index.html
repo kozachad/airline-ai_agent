@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Flight Chat Agent</title>
+  <script type="module">
+    // Firebase modülleri
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyACGesetMgRQbkkcG_6_Sfq1vZpfLbCRI8",
+      authDomain: "flight-chat-agent.firebaseapp.com",
+      projectId: "flight-chat-agent",
+      storageBucket: "flight-chat-agent.firebasestorage.app",
+      messagingSenderId: "830610880498",
+      appId: "1:830610880498:web:775d09354416d2624c1d6b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const messagesRef = collection(db, 'messages');
+
+    const chat = document.getElementById('chat');
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      if (!input.value) return;
+
+      await addDoc(messagesRef, {
+        text: input.value,
+        role: 'user',
+        timestamp: new Date()
+      });
+
+      input.value = '';
+    };
+
+    const q = query(messagesRef, orderBy('timestamp'));
+    onSnapshot(q, (snapshot) => {
+      chat.innerHTML = '';
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement('div');
+        div.className = data.role;
+        div.innerHTML = `<strong>${data.role}</strong>: ${data.text || ''} <br/><em>${data.response || ''}</em>`;
+        chat.appendChild(div);
+      });
+      chat.scrollTop = chat.scrollHeight;
+    });
+  </script>
+  <style>
+    body { font-family: sans-serif; background: #f4f4f4; padding: 2rem; }
+    #chat { max-height: 400px; overflow-y: auto; background: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+    .user { text-align: right; background: #dcf8c6; padding: 0.5rem; border-radius: 10px; margin-bottom: 0.5rem; }
+    .bot { text-align: left; background: #ececec; padding: 0.5rem; border-radius: 10px; margin-bottom: 0.5rem; }
+    form { display: flex; gap: 0.5rem; }
+    input { flex: 1; padding: 0.5rem; font-size: 1rem; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; }
+  </style>
+</head>
+<body>
+  <h2>✈️ Flight Chat Agent</h2>
+  <div id="chat"></div>
+  <form id="form">
+    <input id="input" placeholder="Bir şeyler yazın..." />
+    <button type="submit">Gönder</button>
+  </form>
+</body>
+</html>
