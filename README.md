@@ -86,6 +86,6 @@ All interactions are natural language-based and rely on OpenAI’s GPT-3.5 model
 
 ## 👨‍💻 Developer Info
 
-**Name:** Kaan Mert Kozalı
-**Course:** SE 4458 – Midterm Project (Spring 2025)
-**Project:** Flight Query,Reservation and Check-in Chatbot System
+**Name:** Kaan Mert Kozalı  
+**Course:** SE4458 Assignment-2
+**Project Theme:** Flight Reservation System – AI Agent
