@@ -88,4 +88,5 @@ All interactions are natural language-based and rely on OpenAI’s GPT-3.5 model
 
 **Name:** Kaan Mert Kozalı  
 **Course:** SE4458 Assignment-2
+
 **Project Theme:** Flight Reservation System – AI Agent
