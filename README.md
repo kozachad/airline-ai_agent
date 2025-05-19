@@ -51,7 +51,7 @@ All interactions are natural language-based and rely on OpenAI’s GPT-3.5 model
 
 ## 🧠 Design & Assumptions
 
-* **OpenAI** is used for intent detection. It returns one of: `query`, `buy`, or `checkin`.
+* **OpenAI** is used for intent detection. It returns one of: `query`, `buy`, or `checkin`. And returns the structure for the selected intent.
 * The user writes natural sentences like:
 
   * "I want to book flight 12 for Alice"
